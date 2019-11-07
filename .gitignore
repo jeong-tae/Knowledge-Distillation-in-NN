@@ -1,0 +1,21 @@
+# data
+data/dataset
+*.csv
+*.xlsx
+
+# images
+*.jpeg
+*.jpg
+*.png
+
+# trained model
+*.pth
+*.ckpt
+
+# compressed files
+*.tar
+*.zip
+
+# temporary files
+*.swp
+*.ipynb_checkpoints
