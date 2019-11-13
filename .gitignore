@@ -19,3 +19,4 @@ data/dataset
 # temporary files
 *.swp
 *.ipynb_checkpoints
+*.pyc

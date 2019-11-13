@@ -26,6 +26,7 @@ You should make clear that all directory and files are located correctly
 ## TODO
   - [ ] Check all requirements to run
   - [ ] Additional feature to improve baseline(Hinton's 15)
+  - [ ] Train teachers
 
 ## Usage
 
