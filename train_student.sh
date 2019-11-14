@@ -1,0 +1,1 @@
+CUDA_VISIBLE_DEVICES=3 python3 train_student.py --experiment 'cifar10_student_resnet18_2' --lr 1e-1 --max-epoch 30 --lr-decaysteps 15 25 --teachers 'resnet101' --teachers_weights 'experiment/cifar10_teacher_resnet101_1/model_last.pth'

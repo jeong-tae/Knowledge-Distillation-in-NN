@@ -17,7 +17,7 @@ def loss_fn_kd(s_output, t_outputs, labels, T=1, alpha=0, weights=None):
         t_outputs = [t_outputs]
 
     s_output = F.log_softmax(s_output/T, 1)
-    kd_loss = sum([F.kl_div(F.softmax(t_output/T, 1), s_output) for t_output in t_outputs])
+    kd_loss = sum([F.kl_div(s_output, F.softmax(t_output/T, 1), reduction='batchmean') for t_output in t_outputs])
     loss = (1 - alpha)*F.cross_entropy(s_output, labels) + alpha*kd_loss
     return loss
 

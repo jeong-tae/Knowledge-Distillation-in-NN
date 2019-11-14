@@ -8,6 +8,7 @@ class Checkpointer(object):
         self.scheduler = scheduler
         self.save_dir = save_dir
         self.checkpoint_period = checkpoint_period
+        self.best_acc = 0
 
     def save(self, name):
         data = {}

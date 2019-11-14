@@ -8,11 +8,11 @@ class Logger(object):
     
     def __init__(self, log_dir):
         """Create a summary writer logging to log_dir."""
-        self.writer = tf.summary.FileWriter(log_dir)
+        self.writer = tf.compat.v1.summary.FileWriter(log_dir)
 
     def scalar_summary(self, tag, value, step):
         """Log a scalar variable."""
-        summary = tf.Summary(value=[tf.Summary.Value(tag=tag, simple_value=value)])
+        summary = tf.compat.v1.Summary(value=[tf.compat.v1.Summary.Value(tag=tag, simple_value=value)])
         self.writer.add_summary(summary, step)
 
     def image_summary(self, tag, images, step):
@@ -25,14 +25,14 @@ class Logger(object):
             scipy.misc.toimage(img).save(s, format="png")
 
             # Create an Image object
-            img_sum = tf.Summary.Image(encoded_image_string=s.getvalue(),
+            img_sum = tf.compat.v1.Summary.Image(encoded_image_string=s.getvalue(),
                                        height=img.shape[0],
                                        width=img.shape[1])
-            # Create a Summary value
-            img_summaries.append(tf.Summary.Value(tag='%s/%d' % (tag, i), image=img_sum))
+            # Create a compat.v1.Summary value
+            img_summaries.append(tf.compat.v1.Summary.Value(tag='%s/%d' % (tag, i), image=img_sum))
 
-        # Create and write Summary
-        summary = tf.Summary(value=img_summaries)
+        # Create and write compat.v1.Summary
+        summary = tf.compat.v1.Summary(value=img_summaries)
         self.writer.add_summary(summary, step)
         
     def histo_summary(self, tag, values, step, bins=1000):
@@ -58,7 +58,7 @@ class Logger(object):
         for c in counts:
             hist.bucket.append(c)
 
-        # Create and write Summary
-        summary = tf.Summary(value=[tf.Summary.Value(tag=tag, histo=hist)])
+        # Create and write compat.v1.Summary
+        summary = tf.compat.v1.Summary(value=[tf.compat.v1.Summary.Value(tag=tag, histo=hist)])
         self.writer.add_summary(summary, step)
         self.writer.flush()

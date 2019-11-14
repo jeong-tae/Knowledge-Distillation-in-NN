@@ -1,6 +1,7 @@
 import torch
 
 def build_optimizer(args, model):
+    """
     params = []
     for key, value in model.named_parameters():
         if not value.requires_grad:
@@ -12,12 +13,16 @@ def build_optimizer(args, model):
             weight_decay = 0 # no weight decay for bias
         params += [{"params": [value], "lr": lr, "weight_decay": weight_decay}]
 
-    optimizer = torch.optim.SGD(params, lr, momentum=args.momentum)
+    print(" [*] optimizer is SGD")
+    optimizer = torch.optim.SGD(params, args.lr, momentum=args.momentum, weight_decay=args.weight_decay)
+    """
+    optimizer = torch.optim.SGD(model.parameters(), args.lr, momentum=args.momentum, weight_decay=args.weight_decay)
     return optimizer
 
 def build_lr_scheduler(args, optimizer):
     
-    if 'multistep' in args.scheduler_type.lower()
+    if 'multistep' in args.scheduler_type.lower():
+        print(" [*] lr_scheduler is multistepLR")
         lr_scheduler = torch.optim.lr_scheduler.MultiStepLR(optimizer, milestones=args.lr_decaysteps, gamma=args.lr_anneal)
     else:
         raise NotImplementedError(" [!] Not implemented scheduler yet")

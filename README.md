@@ -18,17 +18,23 @@ Knowledge-Distillation(KD) is a simple way to compress model while keeping the p
     |--engine/
     |    |--trainer.py
     |    |--inference.py
-    |--visual/
+    |    |--solver.py
+    |--utils/
     |    |--logger.py (module that can visualization of image and training plot)  
+    |    |--checkpointer.py
+    |    |--measure.py
 
 You should make clear that all directory and files are located correctly
   
 ## TODO
   - [ ] Check all requirements to run
   - [ ] Additional feature to improve baseline(Hinton's 15)
-  - [ ] Train teachers
+  - [x] Train teachers
 
 ## Usage
+
+I added two scripts. One for training the teacher model and another for trainingthe student using teacher.  
+Specify your teacher model in models and build_model if you have own your model and put arguments correctly to run.
 
 ### How to train?
 ```bash
@@ -41,7 +47,14 @@ $ ./experiments/exp1/train.sh
 ## Performance
 Table will be appear
 
+## To track your training progress
+```bash
+$ tensorboard --logdir=experiment/ --port=6666
+```
+
+and go to 'localhost:6666' on webbrowser. You can see the accuracy and loss graph
 
 ## References
   - ["Distilling the Knowledge in a Neural Network"](https://arxiv.org/pdf/1503.02531.pdf)
-
+  - ["Python implementaion of hinton's KD"](https://github.com/peterliht/knowledge-distillation-pytorch)
+    - I refered CS230 report to understand loss function(Cross entropy + KL_div)

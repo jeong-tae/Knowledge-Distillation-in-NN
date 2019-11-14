@@ -14,19 +14,19 @@ class Dataloader(data.Dataset):
 
 def CIFAR10_loader(args, is_train = False):
     if is_train:
-        transformer = trasforms.Compose([
+        transformer = transforms.Compose([
             transforms.RandomCrop(32, padding=4),
             transforms.RandomHorizontalFlip(),
             transforms.ToTensor(),
             transforms.Normalize((0.4914, 0.4822, 0.4465), (0.247, 0.243, 0.261))
         ])
     else:
-        transformer = trasforms.Compose([
+        transformer = transforms.Compose([
             transforms.ToTensor(),
             transforms.Normalize((0.4914, 0.4822, 0.4465), (0.247, 0.243, 0.261))
         ])
         
-    dataset = torchvision.dataset.CIFAR10(root='./data-cifar10', train=is_train,
+    dataset = torchvision.datasets.CIFAR10(root='./data-cifar10', train=is_train,
             download=True, transform = transformer)
 
     # Note: pin_memory should be false when you deploy model which running with small dataset

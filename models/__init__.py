@@ -1,2 +1,2 @@
-from Loss import loss_fn_kd
-from resnet import renset18, resnet34, resnet50, resnet101, resnet151
+from .Loss import loss_fn_kd
+from .build_model import build_model

@@ -1,9 +1,11 @@
 from tqdm import tqdm
 import torch
 import torch.nn.functional as F
-from ..utils import ClassWiseAverageMeter, AverageMeter
+import sys
+sys.path.append("..")
+from utils import ClassWiseAverageMeter, AverageMeter, accuracy
 
-def inference(model, data_loader, logger, device, args):
+def inference(model, data_loader, logger, device, current_epoch, args):
     model.eval()
 
     classwise_acc = ClassWiseAverageMeter(args.num_classes)
@@ -12,7 +14,7 @@ def inference(model, data_loader, logger, device, args):
     acc3 = AverageMeter()
     val_loss = AverageMeter()
 
-    for iteration, (images, labels) in tqdm(enumerate(data_loader), desc="Inference:"):
+    for images, labels in tqdm(data_loader, desc="Inference"):
         images, labels = images.to(device), labels.to(device)
         with torch.no_grad():
             output = model(images)
@@ -31,5 +33,6 @@ def inference(model, data_loader, logger, device, args):
     logger.scalar_summary("val_loss", val_loss.avg, current_epoch)
     classwise_acc.get_average()
     logger.scalar_summary("val_clswise_acc", classwise_acc.top1_avg.mean(), current_epoch)
+    return acc1.avg, classwise_acc.top1_avg.mean()
 
 

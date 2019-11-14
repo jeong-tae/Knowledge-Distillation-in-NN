@@ -18,7 +18,7 @@ def do_train(student, teachers, loss_fn, data_loader, optimizer, checkpointer, d
 
     global_iteration = current_epoch*len(data_loader)
 
-    for iteration, (images, labels) in tqdm(enumerate(data_loader), desc="Train:":
+    for images, labels in tqdm(data_loader, desc="Train"):
         images = images.to(device)
         labels = labels.to(device)
 
@@ -32,7 +32,7 @@ def do_train(student, teachers, loss_fn, data_loader, optimizer, checkpointer, d
         optimizer.step()
         t2 = time.time()
 
-        global_iteration += iteration
+        global_iteration += 1
 
         #==================== Logging =====================#
         logger.scalar_summary("train_loss", loss.item(), global_iteration)

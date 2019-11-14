@@ -1,5 +1,7 @@
 # data
+data-cifar10
 data/dataset
+experiment
 *.csv
 *.xlsx
 
